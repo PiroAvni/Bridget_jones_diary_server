@@ -39,13 +39,12 @@ class Diary {
     return newDiary;
   }
 
-  static async update(data, id) {
-    const {  content } = data;
+  static async update(content, id) {
     const response = await db.query(
-      "UPDATE post SET content =$1  WHERE post_id =$2RETURNING *;",
-      [ content, id]
+      "UPDATE post SET content = $1 WHERE post_id = $2;",
+      [content, id]
     );
-    return new Diary(response.rows[0]);
+    return "updated to what you said";
   }
 
   static async destroy(id) {

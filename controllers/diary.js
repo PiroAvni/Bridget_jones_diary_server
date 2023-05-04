@@ -31,12 +31,11 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-const data = req.body;
     const id = parseInt(req.params.id);
-
-    const result = await Diary.update(req.body,id); 
-  
-    res.status(200).json(result);
+    const data = req.body["content"];
+    const diary = await Diary.getOneById(id);
+    const result = await Diary.update(data, id);
+    res.status(204).json(result);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
@@ -45,9 +44,9 @@ const data = req.body;
 async function destroy(req, res) {
   try {
     const id = parseInt(req.params.id);
-    const snack = await Diary.getOneById(id);
+    const diary_id = await Diary.getOneById(id);
     const result = await Diary.destroy(id);
-    res.status(200).json(result);
+    res.status(204).json(result);
   } catch (err) {
     res.status(404).json({ error: err.message });
   }
