@@ -4,7 +4,7 @@ const Diary = require("../models/diary");
 async function index(req, res) {
   try {
     const diary = await Diary.getAll();
-    res.status(200).jsonn(diary);
+    res.status(200).json(diary);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
