@@ -18,6 +18,7 @@ The server will be running on [!]http://localhost:3000/(http://localhost:3000/)
 To access the live data for each continent the following End-point are:
 1.  https://bridget-jones-diary-server.onrender.com/users/register
 2.  https://bridget-jones-diary-server.onrender.com/users/login
+3.  https://bridget-jones-diary-server.onrender.com/users//category?
 
 ## Resful APIs
 

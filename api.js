@@ -10,9 +10,12 @@ const diaryRouter = require("./routers/diary");
 
 const api = express();
 
+
 api.use(cors());
 api.use(express.json());
 api.use(logRoutes);
+
+
 
 api.get("/", (req, res) => {
   res.json({

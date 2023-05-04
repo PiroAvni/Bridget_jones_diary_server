@@ -11,4 +11,6 @@ diaryRouter.get("/:id", diaryController.show);
 diaryRouter.patch("/:id", diaryController.update);
 diaryRouter.delete("/:id", diaryController.destroy);
 
+diaryRouter.post('/category?',diaryController.getCategory)
+
 module.exports = diaryRouter;

@@ -1,15 +1,26 @@
 const db = require("../database/connect");
 
 class Diary {
-  constructor({ post_id, title, content, created_at }) {
+  constructor({
+    post_id,
+    title,
+    content,
+    category,
+    post_time,
+    post_date,
+    user_id,
+  }) {
     this.post_id = post_id;
     this.title = title;
     this.content = content;
-    this.created_at = created_at;
+    this.category = category;
+    this.post_time = post_time;
+    this.post_date = post_date;
+    this.user_id = user_id;
   }
 
   static async getAll() {
-    const response = await db.query("SELECT * FROM post ORDER BY created_at");
+    const response = await db.query("SELECT * FROM post ORDER BY post_date");
 
     if (response.rows.length === 0) {
       throw new Error("No diary posts available");
@@ -28,10 +39,10 @@ class Diary {
   }
 
   static async create(data) {
-    const { title, content } = data;
+    const { title, content, category } = data;
     const response = await db.query(
-      "INSERT INTO post (title, content) VALUES( $1, $2)  RETURNING post_id",
-      [title, content]
+      "INSERT INTO post (title, content, category) VALUES( $1, $2 $3)  RETURNING post_id",
+      [title, content, category]
     );
     const postId = response.rows[0].post_id;
     const newDiary = await Diary.getOneById(postId);
@@ -40,10 +51,10 @@ class Diary {
   }
 
   static async update(data, id) {
-    const {  content } = data;
+    const { content } = data;
     const response = await db.query(
-      "UPDATE post SET content =$1  WHERE post_id =$2RETURNING *;",
-      [ content, id]
+      "UPDATE post SET content =$1  WHERE post_id =$2 RETURNING *;",
+      [content, id]
     );
     return new Diary(response.rows[0]);
   }
@@ -53,6 +64,19 @@ class Diary {
       id,
     ]);
     return "The record has been deleted";
+  }
+
+  static async getCategory(category) {
+    const data =  category ;
+   
+    console.log("line 63", data);
+    const response = await db.query(
+    'SELECT * FROM post WHERE category = $1;' ,[data]
+    );
+    if (response.rows.length === 0) {
+      throw new Error("No diary posts available");
+    }
+    return response.rows[0];
   }
 }
 

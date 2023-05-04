@@ -4,10 +4,12 @@ const db = require("../database/connect");
 
 class Token {
 
-    constructor({ token_id, user_id, token }){
+    constructor({ token_id, user_id, token, date_created_at, time_created_at }){
         this.token_id = token_id;
         this.user_id = user_id;
         this.token = token;
+        this.date_created_at = date_created_at;
+        this.time_created_at = time_created_at;
     }
 
     static async create(user_id) {

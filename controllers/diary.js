@@ -31,7 +31,7 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-const data = req.body;
+
     const id = parseInt(req.params.id);
 
     const result = await Diary.update(req.body,id); 
@@ -53,10 +53,25 @@ async function destroy(req, res) {
   }
 }
 
+async function getCategory(req, res) {
+  try {
+    const {category} = req.body;
+    console.log('line 61', category)
+    const diary = await Diary.getCategory(category);
+    res.status(200).json(diary);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+
+
 module.exports = {
   index,
   show,
   create,
   update,
   destroy,
+  getCategory
 };
