@@ -4,6 +4,6 @@ const diaryController = require("../controllers/diary");
 
 const diaryRouter = Router();
 
-diaryRouter.get("/diary", diaryController.index);
+diaryRouter.get("/", diaryController.index);
 
 module.exports = diaryRouter;

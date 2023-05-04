@@ -1,4 +1,3 @@
-const { post } = require("../app");
 const db = require("../database/connect");
 
 class Diary {
@@ -11,9 +10,12 @@ class Diary {
 
   static async getAll() {
     const response = await db.query("SELECT * FROM post ORDER BY created_at");
+
     if (response.rows.length === 0) {
       throw new Error("No diary posts available");
     }
     return response.rows.map((p) => new Diary(p));
   }
 }
+
+module.exports = Diary;
