@@ -27,3 +27,9 @@ CREATE TABLE token (
     PRIMARY KEY (token_id),
     FOREIGN KEY (user_id) REFERENCES user_account("user_id")
 );
+
+INSERT INTO user_account ( username, password, Admin) VALUES ('tom', 123, true);
+INSERT INTO user_account ( username, password, Admin) VALUES ('ajay', 1234, true);
+
+INSERT INTO Post (title, content) VALUES ('Hello', 'This is a test ');
+INSERT INTO Post (title, content) VALUES ('TEST','HELLO THE WEATHER IS NICE TODAY ');
