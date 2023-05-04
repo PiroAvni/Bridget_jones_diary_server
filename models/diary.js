@@ -41,7 +41,7 @@ class Diary {
 
   static async update(content, id) {
     const response = await db.query(
-      "UPDATE post SET content =  $1 WHERE snack_id = $2;",
+      "UPDATE post SET content = $1 WHERE post_id = $2;",
       [content, id]
     );
   }
