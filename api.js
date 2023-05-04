@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const logRoutes = require('./middleware/logger');
-
+const userRouter = require('./routers/users');
 
 const api = express();
 
@@ -17,5 +17,6 @@ api.get("/", (req, res) => {
     })
 })
 
+api.use("/users", userRouter);
 
 module.exports = api;
