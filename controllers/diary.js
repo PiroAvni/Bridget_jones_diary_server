@@ -56,11 +56,34 @@ async function destroy(req, res) {
 async function getCategory(req, res) {
   try {
     const {category} = req.body;
+  
     console.log('line 61', category)
     const diary = await Diary.getCategory(category);
     res.status(200).json(diary);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCategory2(req, res) {
+  try {
+    const post = req.params.category
+    console.log('line 72', post)
+    const diary = await Diary.getCategory2(post);
+    res.status(200).json(diary);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function showYear (req, res) {
+  try {
+      const year = parseInt(req.params.year);
+      console.log('line 69',year)
+      const post = await Diary.getByYear(year);
+      res.status(200).json(post);
+  } catch (err) {
+      res.status(404).json({"error": err.message})
   }
 }
 
@@ -73,5 +96,7 @@ module.exports = {
   create,
   update,
   destroy,
-  getCategory
+  getCategory,
+  getCategory2, 
+  showYear
 };

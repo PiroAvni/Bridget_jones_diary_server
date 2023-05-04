@@ -41,13 +41,13 @@ class Diary {
   static async create(data) {
     const { title, content, category } = data;
     const response = await db.query(
-      "INSERT INTO post (title, content, category) VALUES( $1, $2 $3)  RETURNING post_id",
+      "INSERT INTO post (title, content, category) VALUES( $1, $2 , $3)  RETURNING post_id",
       [title, content, category]
     );
     const postId = response.rows[0].post_id;
     const newDiary = await Diary.getOneById(postId);
 
-    return newDiary;
+    return new Diary(response.rows[0]);
   }
 
   static async update(data, id) {
@@ -71,13 +71,40 @@ class Diary {
    
     console.log("line 63", data);
     const response = await db.query(
-    'SELECT * FROM post WHERE category = $1;' ,[data]
+    'SELECT * FROM post WHERE category = $1  ORDER BY post_date, post_time DESC;' ,[data]
     );
     if (response.rows.length === 0) {
       throw new Error("No diary posts available");
     }
-    return response.rows[0];
+    return response.rows.map(g => new Diary(g));
   }
+
+
+  
+  static async getCategory2(post) {
+    const item =  post ;
+   
+    console.log("line 87", item);
+    const response = await db.query(
+    'SELECT * FROM post WHERE category = $1 ORDER BY post_date, post_time DESC;' ,[item]
+    );
+    if (response.rows.length === 0) {
+      throw new Error("No diary posts available");
+    }
+    return response.rows.map(g => new Diary(g));
+  }
+
+  
+  static async getByYear(year){ 
+  
+    const response = await db.query("SELECT * FROM post WHERE EXTRACT(YEAR FROM post_date) = $1 ORDER BY post_date, post_time DESC;", [year]);
+    if (response.rows.length === 0) {
+        throw new Error("No entries available.")
+    }
+    return response.rows.map(g => new Diary(g));
+}
+
+
 }
 
 module.exports = Diary;
