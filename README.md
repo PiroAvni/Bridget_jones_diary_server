@@ -30,17 +30,19 @@ RESTful APIs most commonly utilize HTTP requests. Four of the most common HTTP m
 
 ### RESTful = HTTP
 
-  - `diary /customer - GET` - AS A USER I CAN SEE ALL THE CUSTOMER
-  - `show /customer/:id` - GET
-  - `create /customer/:id` - POST
-  - `update /customer/:id` - PATCH
-  - `destory /customer/:id` - DELETE
+### Posts
+  - `diary /diary - GET` - AS A USER I CAN SEE ALL THE POSTS
+  - `show /diary/:id` - GET
+  - `create /diary` - POST
+  - `update /diary/:id` - PATCH
+  - `destory /diary/:id` - DELETE
 
-  - `index /bank_details - GET` - AS A USER I CAN SEE ALL THE CUSTOMERS
-  - `show /bank_details/:id` - GET
-  - `create /bank_details/:id` - POST
-  - `update /bank_details/:id` - PATCH
-  - `destory /bank_details/:id` - DELETE
+### Users
+  - `index /users - GET` - AS A USER I CAN SEE ALL THE CUSTOMERS
+  - `show /users/register` - Post
+  - `create /users/login` - POST
+  - `update /users/:id` - PATCH
+ 
 
 
 
