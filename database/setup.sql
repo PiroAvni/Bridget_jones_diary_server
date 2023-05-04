@@ -14,7 +14,7 @@ CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(30) UNIQUE NOT NULL,
     password CHAR(60) NOT NULL,
-    Admin Boolean DEFAULT FALSE,
+    Admin Boolean NOT NULL DEFAULT false,
     created_at  timestamptz null default now(),
     PRIMARY KEY (user_id)
 );
