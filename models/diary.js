@@ -30,7 +30,7 @@ class Diary {
   static async create(data) {
     const { title, content } = data;
     const response = await db.query(
-      "INSERT INTO post (title, content) VALUES( $1, $2) RETURNING post_id",
+      "INSERT INTO post (title, content) VALUES( $1, $2)  RETURNING post_id",
       [title, content]
     );
     const postId = response.rows[0].post_id;
@@ -39,11 +39,13 @@ class Diary {
     return newDiary;
   }
 
-  static async update(content, id) {
+  static async update(data, id) {
+    const {  content } = data;
     const response = await db.query(
-      "UPDATE post SET content =  $1 WHERE snack_id = $2;",
-      [content, id]
+      "UPDATE post SET content =$1  WHERE post_id =$2RETURNING *;",
+      [ content, id]
     );
+    return new Diary(response.rows[0]);
   }
 
   static async destroy(id) {
