@@ -2,7 +2,7 @@ const db = require('../database/connect');
 
 class User {
 
-    constructor({ user_id, username, password, admin }) {
+    constructor({ user_id, username, password, Admin }) {
         this.id = user_id;
         this.username = username;
         this.password = password;
@@ -33,6 +33,13 @@ class User {
         const newUser = await User.getOneById(newId);
         return newUser;
     }
+
+    static async update(data,id){
+        const {username, password, Admin} = data;
+        let response = await db.query('UPDATE user_account SET username = $1, password =$2, Admin =$3 WHERE  user_id = $4 RETURNING *', [username, password, Admin, id])
+        return new User(response.rows[0]);
+    }
+
 
 }
 

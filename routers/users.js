@@ -8,8 +8,7 @@ const userRouter = Router();
 
 userRouter.post("/register", userController.register);
 userRouter.post("/login", userController.login);
-
-
+userRouter.patch("/update/:id", userController.updateUser);
 
 
 module.exports = userRouter;

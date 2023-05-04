@@ -41,4 +41,25 @@ async function login(req, res) {
   }
 }
 
-module.exports = { register, login };
+const updateUser = async (req, res) => {
+    try {
+        const data = req.body;
+        const id = parseInt(req.params.id)
+        console.log(id, req.body)
+        const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+
+        // Hash the password
+        data["password"] = await bcrypt.hash(data["password"], salt);
+        const updateUser = await User.update(req.body,id)
+
+        res.status(200).json({message: "User Details Updated successfully",
+        body: {
+          user: {updateUser },
+        }
+      })
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+    }
+}
+
+module.exports = { register, login, updateUser };
