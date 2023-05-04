@@ -29,7 +29,9 @@
     "scripts": {
       "dev": "nodemon -L index.js",
       "start": "node index.js",
-      "setup-db": "node ./database/setup.js"
+      "setup-db": "node ./database/setup.js",
+      "test": "jest --watchAll",
+      "coverage": "jest --coverage"
     },
   "devDependencies": {
     "jest": "^29.5.0",
