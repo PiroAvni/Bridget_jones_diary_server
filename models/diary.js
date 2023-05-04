@@ -29,12 +29,12 @@ class Diary {
 
   static async create(data) {
     const { title, content } = data;
-    const response = await db.quert(
-      "INSERT INTO post (title, content) VALUES( $1, $2)",
+    const response = await db.query(
+      "INSERT INTO post (title, content) VALUES( $1, $2) RETURNING post_id",
       [title, content]
     );
     const postId = response.rows[0].post_id;
-    const newDiary = await Snack.getOneById([postId]);
+    const newDiary = await Diary.getOneById(postId);
 
     return newDiary;
   }

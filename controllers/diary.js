@@ -34,7 +34,7 @@ async function update(req, res) {
     const id = parseInt(req.params.id);
     const data = req.body;
     const post_id = await Diary.getOneById(id);
-    const result = await Diary.update(data, id);
+    const result = await Diary.update(data, post_id);
     res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ error: err.message });
